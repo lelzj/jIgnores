@@ -132,6 +132,12 @@ Addon.APP:SetScript( 'OnEvent',function( self,Event,AddonName )
 		--  @return void
 		Addon.APP.Init = function( self )
 
+			self.AlertColor = {
+				r = 253,
+				g = 190,
+				b = 190,
+				a = 1,
+			};
 			self.Ignores,self.Members = {},{};
 			self.Events = CreateFrame( 'Frame' );
 			self.Events:RegisterEvent( 'IGNORELIST_UPDATE' );
@@ -147,7 +153,7 @@ Addon.APP:SetScript( 'OnEvent',function( self,Event,AddonName )
 						for _,Ignore in pairs( Addon.APP:GetIgnores() ) do
 							for _,Member in pairs( Addon.APP:GetPartyMembers() ) do
 								if( Addon:Minify( Ignore ):find( Addon:Minify( Member ) ) ) then
-									UIErrorsFrame:AddMessage( Ignore..' is ignored and is also in your group',AlertColor.r,AlertColor.g,AlertColor.b,AlertColor.a );
+									UIErrorsFrame:AddMessage( Ignore..' is ignored and is also in your group',Addon.APP.AlertColor.r,Addon.APP.AlertColor.g,Addon.APP.AlertColor.b,Addon.APP.AlertColor.a );
 								end
 							end
 						end
@@ -163,7 +169,7 @@ Addon.APP:SetScript( 'OnEvent',function( self,Event,AddonName )
 					for _,Ignore in pairs( self:GetIgnores() ) do
 						for _,Member in pairs( self:GetPartyMembers() ) do
 							if( Addon:Minify( Ignore ):find( Addon:Minify( Member ) ) ) then
-								UIErrorsFrame:AddMessage( Ignore..' is ignored and is also in your group',AlertColor.r,AlertColor.g,AlertColor.b,AlertColor.a );
+								UIErrorsFrame:AddMessage( Ignore..' is ignored and is also in your group',self.AlertColor.r,self.AlertColor.g,self.AlertColor.b,self.AlertColor.a );
 							end
 						end
 					end
