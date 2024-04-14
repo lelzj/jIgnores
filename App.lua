@@ -3,12 +3,12 @@ local _, Addon = ...;
 Addon.APP = CreateFrame( 'Frame' );
 Addon.APP:RegisterEvent( 'ADDON_LOADED' );
 Addon.APP:SetScript( 'OnEvent',function( self,Event,AddonName )
-    if( AddonName == 'jIgnores' ) then
-        if( InCombatLockdown() ) then
-            return;
-        end
+	if( AddonName == 'jIgnores' ) then
+		if( InCombatLockdown() ) then
+			return;
+		end
 
-        Addon.APP.ParseIgnores = function( self )
+		Addon.APP.ParseIgnores = function( self )
 			local button;
 			local NumIgnores = C_FriendList.GetNumIgnores();
 			local NumBlocks = BNGetNumBlocked();
@@ -126,53 +126,53 @@ Addon.APP:SetScript( 'OnEvent',function( self,Event,AddonName )
  			return self.Members;
  		end
 
-        --
-        --  Module init
-        --
-        --  @return void
-        Addon.APP.Init = function( self )
+		--
+		--  Module init
+		--
+		--  @return void
+		Addon.APP.Init = function( self )
 
-        	self.Ignores,self.Members = {},{};
+			self.Ignores,self.Members = {},{};
 			self.Events = CreateFrame( 'Frame' );
 			self.Events:RegisterEvent( 'IGNORELIST_UPDATE' );
 			self.Events:RegisterEvent( 'GROUP_ROSTER_UPDATE' );
 			self.Events:RegisterEvent( 'GROUP_JOINED' );
 
-            self.Events:SetScript( 'OnEvent',function( self,Event )
-                C_Timer.After( 2, function()
-                    Addon.APP:ParseIgnores();
-                    Addon.APP:ParseMembers();
+			self.Events:SetScript( 'OnEvent',function( self,Event )
+				C_Timer.After( 2, function()
+					Addon.APP:ParseIgnores();
+					Addon.APP:ParseMembers();
 
-                    if( #Addon.APP:GetPartyMembers() > 0 and #Addon.APP:GetIgnores() > 0 ) then
-			            for _,Ignore in pairs( Addon.APP:GetIgnores() ) do
-			            	for _,Member in pairs( Addon.APP:GetPartyMembers() ) do
-			            		if( Addon:Minify( Ignore ):find( Addon:Minify( Member ) ) ) then
-		                			UIErrorsFrame:AddMessage( Ignore..' is ignored and is also in your group',AlertColor.r,AlertColor.g,AlertColor.b,AlertColor.a );
-			            		end
-			            	end
-			            end
-			        end
-                end );
-            end );
+					if( #Addon.APP:GetPartyMembers() > 0 and #Addon.APP:GetIgnores() > 0 ) then
+						for _,Ignore in pairs( Addon.APP:GetIgnores() ) do
+							for _,Member in pairs( Addon.APP:GetPartyMembers() ) do
+								if( Addon:Minify( Ignore ):find( Addon:Minify( Member ) ) ) then
+									UIErrorsFrame:AddMessage( Ignore..' is ignored and is also in your group',AlertColor.r,AlertColor.g,AlertColor.b,AlertColor.a );
+								end
+							end
+						end
+					end
+				end );
+			end );
 
-            C_Timer.After( 2, function()
-                Addon.APP:ParseIgnores();
-                Addon.APP:ParseMembers();
+			C_Timer.After( 2, function()
+				Addon.APP:ParseIgnores();
+				Addon.APP:ParseMembers();
 
-                if( #self:GetPartyMembers() > 0 and #self:GetIgnores() > 0 ) then
-		            for _,Ignore in pairs( self:GetIgnores() ) do
-		            	for _,Member in pairs( self:GetPartyMembers() ) do
-		            		if( Addon:Minify( Ignore ):find( Addon:Minify( Member ) ) ) then
-	                			UIErrorsFrame:AddMessage( Ignore..' is ignored and is also in your group',AlertColor.r,AlertColor.g,AlertColor.b,AlertColor.a );
-		            		end
-		            	end
-		            end
-		        end
-            end );
+				if( #self:GetPartyMembers() > 0 and #self:GetIgnores() > 0 ) then
+					for _,Ignore in pairs( self:GetIgnores() ) do
+						for _,Member in pairs( self:GetPartyMembers() ) do
+							if( Addon:Minify( Ignore ):find( Addon:Minify( Member ) ) ) then
+								UIErrorsFrame:AddMessage( Ignore..' is ignored and is also in your group',AlertColor.r,AlertColor.g,AlertColor.b,AlertColor.a );
+							end
+						end
+					end
+				end
+			end );
 		end
 
-        self:Init();
+		self:Init();
 
-        self:UnregisterEvent( 'ADDON_LOADED' );
+		self:UnregisterEvent( 'ADDON_LOADED' );
     end
 end );
