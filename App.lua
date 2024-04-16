@@ -43,7 +43,7 @@ Addon.APP:SetScript( 'OnEvent',function( self,Event,AddonName )
 				if( NumIgnores > 0 ) then
 					selectedSquelchType = SQUELCH_TYPE_IGNORE;
 					selectedSquelchIndex = 1;
-				elseif( numBlocks > 0 ) then
+				elseif( NumBlocks > 0 ) then
 					selectedSquelchType = SQUELCH_TYPE_BLOCK_INVITE;
 					selectedSquelchIndex = 1;
 				end
