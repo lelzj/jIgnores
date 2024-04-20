@@ -26,7 +26,6 @@ Addon.APP:SetScript( 'OnEvent',function( self,Event,AddonName )
 				blockedHeader = 0;
 			end
 
-			local NumOnline = 0;
 			local lastIgnoredIndex = NumIgnores + ignoredHeader;
 			local lastBlockedIndex = lastIgnoredIndex + NumBlocks + blockedHeader;
 			local numEntries = lastBlockedIndex;
@@ -70,10 +69,11 @@ Addon.APP:SetScript( 'OnEvent',function( self,Event,AddonName )
 					-- blocked
 					button.index = squelchedIndex - lastIgnoredIndex - blockedHeader;
 					local blockID, blockName = BNGetBlockedInfo(button.index);
-					button.type = SQUELCH_TYPE_BLOCK_INVITE;
-				end
-				if( selectedSquelchType == button.type and selectedSquelchIndex == button.index ) then
-					NumOnline = NumOnline + 1;
+
+					if( blockName ) then
+						self:SetIgnore( blockName );
+						button.type = SQUELCH_TYPE_BLOCK_INVITE;
+					end
 				end
 			end
  		end
