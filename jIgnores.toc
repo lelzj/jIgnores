@@ -1,5 +1,5 @@
-## Title: |cff009bffj|cffffffffVars|r
-## Notes: j's Ignore Mod
+## Title: |cff009bffj|cffffffffIgnores|r
+## Notes: j's Ignores Mod
 ## X-Category: system
 
 ## Author: jadissa
