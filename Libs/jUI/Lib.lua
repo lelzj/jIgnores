@@ -75,3 +75,11 @@ Addon.Hex2RGB = function( self,Hex )
     tonumber( '0x' .. Hex:sub( 3,4 ) ) / 255, 
     tonumber( '0x' .. Hex:sub( 5,6 ) ) / 255
 end
+
+Addon.ArrayReverse = function( self,Input )
+  local Reversed = {};
+  for Key,Value in pairs( Input ) do
+    Reversed[ Value ] = Key;
+  end
+  return Reversed;
+end
